@@ -33,6 +33,7 @@ func main() {
 		stlog.Fatalln(err)
 	}
 
+	//接收context传递的信号
 	<-ctx.Done()
 	fmt.Println("Shutting down log service.")
 }

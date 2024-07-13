@@ -10,12 +10,14 @@ type Registration struct {
 
 type ServiceName string
 
+// 所有的服务列表
 const (
 	LogService    = ServiceName("LogService")
 	GradeService  = ServiceName("GradeService")
 	PortalService = ServiceName("PortalService")
 )
 
+// 用于服务状态更新的结构体
 type patchEntry struct {
 	Name ServiceName
 	URL  string

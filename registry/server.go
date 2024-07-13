@@ -73,6 +73,7 @@ func (r registry) sendRequiredServices(reg Registration) error {
 	defer r.mutex.RUnlock()
 
 	var p patch
+	//循环访问全部服务和自身需要的服务，将自身需要的服务信息保存到patch中
 	for _, serviceReg := range r.registrations {
 		for _, reqService := range reg.RequiredServices {
 			if serviceReg.ServiceName == reqService {
@@ -83,6 +84,7 @@ func (r registry) sendRequiredServices(reg Registration) error {
 			}
 		}
 	}
+	//服务注册中心向被注册的服务的UpdateURL将信息发送过去
 	err := r.sendPatch(p, reg.ServiceUpdateURL)
 	if err != nil {
 		return err

@@ -82,11 +82,13 @@ func ShutdownService(url string) error {
 	return nil
 }
 
+// 所依赖的服务信息
 type providers struct {
 	services map[ServiceName][]string
 	mutex    *sync.RWMutex
 }
 
+// 根据接收到的patch更新依赖列表
 func (p *providers) Update(pat patch) {
 	p.mutex.Lock()
 	defer p.mutex.Unlock()
@@ -107,6 +109,7 @@ func (p *providers) Update(pat patch) {
 		}
 	}
 }
+
 func (p providers) get(name ServiceName) (string, error) {
 	providers, ok := p.services[name]
 	if !ok {

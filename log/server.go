@@ -2,7 +2,7 @@ package log
 
 import (
 	"io/ioutil"
-	stlog "log"
+	stlog "log" //在本地log包没有启动成功时使用官方log包
 	"net/http"
 	"os"
 )
@@ -11,7 +11,7 @@ var log *stlog.Logger
 
 type fileLog string
 
-// fileLog实现了io.writer中的Write方法，所以filelog可以被视作io.writer类型
+// fileLog实现了io.writer接口中的Write方法，所以filelog可以被视作io.writer类型
 func (fl fileLog) Write(data []byte) (int, error) {
 	f, err := os.OpenFile(string(fl), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
